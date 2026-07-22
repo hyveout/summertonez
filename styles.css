@@ -1,0 +1,656 @@
+/* SUMMERTONEZ — shared styles
+   Aesthetic: Indian block-print bazaar. Tan khadi cloth, warm white,
+   sindoor red. Mughal arches, paisley (buta), temple scallops, lotus.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Baloo+Paaji+2:wght@400;500;600&display=swap');
+
+:root {
+  /* Palette — khadi + sindoor */
+  --tan: #E7D3AE;            /* khadi tan base */
+  --tan-2: #D9BF8F;          /* deeper tan fold */
+  --white: #FFFBF0;          /* warm chalk white */
+  --ink: #34200E;            /* kohl brown-black */
+  --ink-2: #6E4B2A;          /* burnt umber */
+  --red: #AE1E23;            /* sindoor red */
+  --red-2: #7C1215;          /* dried lac red */
+  --gold: #C08A2D;           /* marigold thread */
+  --rule: rgba(52, 32, 14, 0.2);
+
+  /* Legacy aliases (older page styles reference these) */
+  --gauze: var(--tan);
+  --gauze-2: var(--tan-2);
+  --blood: var(--red);
+  --blood-dark: var(--red-2);
+  --iodine: var(--white);
+
+  /* Type */
+  --serif: 'DM Serif Display', Georgia, serif;
+  --mono: 'DM Mono', 'IBM Plex Mono', ui-monospace, monospace;
+  --deva: 'Baloo Paaji 2', 'DM Serif Display', serif;   /* Gurmukhi (Punjabi) + display Latin */
+
+  --ease: cubic-bezier(.2,.7,.2,1);
+
+  /* Ornament intensity — controlled by Tweaks */
+  --wrap: 0.7;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--tan);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Khadi cloth texture — fine weave + warm vignettes */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(52, 32, 14, 0.014) 0px,
+      rgba(52, 32, 14, 0.014) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(52, 32, 14, 0.014) 0px,
+      rgba(52, 32, 14, 0.014) 1px,
+      transparent 1px,
+      transparent 5px
+    ),
+    radial-gradient(ellipse 60% 40% at 5% 15%, rgba(174, 30, 35, 0.05), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 95% 85%, rgba(124, 18, 21, 0.05), transparent 70%),
+    radial-gradient(ellipse 30% 20% at 80% 20%, rgba(192, 138, 45, 0.06), transparent 70%);
+  mix-blend-mode: multiply;
+  opacity: calc(0.6 + var(--wrap) * 0.4);
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12  0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0.09 0'/></filter><rect width='200' height='200' filter='url(%23n)' opacity='0.7'/></svg>");
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+}
+
+main, header, footer, nav, section { position: relative; z-index: 3; }
+
+/* Type ----------------------------------------------------- */
+
+h1, h2, h3, h4 {
+  font-family: var(--serif);
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.mono { font-family: var(--mono); }
+.serif-italic { font-family: var(--serif); font-style: italic; }
+.deva { font-family: var(--deva); font-weight: 400; }
+
+.label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ============ TEXTURES ================================
+   Red surfaces use the lac-dye texture; white surfaces use aged paper.
+   background-blend-mode: multiply tints the texture with the color. */
+
+.blood-surface,
+.tex-blood {
+  background-color: var(--red);
+  background-image: url("assets/tex-blood.jpg");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+}
+
+.paper-surface,
+.tex-paper {
+  background-color: var(--white);
+  background-image: linear-gradient(rgba(255,251,240,0.87), rgba(255,251,240,0.87)), url("assets/tex-paper.jpg");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: normal, multiply;
+}
+
+/* ============ INDIAN ORNAMENT LIBRARY =====================
+   .paisley-bg     — subtle buta (paisley) block-print tile
+   .paisley-bg.red — denser sindoor version for red surfaces
+   .arch-mask      — Mughal ogee-arch mask (apply to media + its frame)
+   .scallop-down   — temple-awning scallop trim hanging below an element
+   .orn-lotus      — lotus divider, flanked by rules
+   .bindi          — small red dot with gold ring
+*/
+
+.paisley-bg {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'><g fill='none' stroke='%2334200E' stroke-opacity='0.13' stroke-width='1.3'><path d='M42 10c16 5 23 21 18 37-4 13-17 22-29 18-11-3-16-17-10-27 5-9 17-10 22-2 3 7-2 15-9 13'/><path d='M60 14c3-4 9-5 13-2'/><circle cx='35' cy='45' r='2.2'/><circle cx='10' cy='12' r='1.4'/><circle cx='74' cy='70' r='1.4'/></g></svg>");
+  background-size: 84px 84px;
+}
+.paisley-bg.red {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='84' height='84' viewBox='0 0 84 84'><g fill='none' stroke='%23FFFBF0' stroke-opacity='0.14' stroke-width='1.3'><path d='M42 10c16 5 23 21 18 37-4 13-17 22-29 18-11-3-16-17-10-27 5-9 17-10 22-2 3 7-2 15-9 13'/><path d='M60 14c3-4 9-5 13-2'/><circle cx='35' cy='45' r='2.2'/><circle cx='10' cy='12' r='1.4'/><circle cx='74' cy='70' r='1.4'/></g></svg>");
+  background-size: 84px 84px;
+}
+
+/* Mughal ogee arch — mask any block into an arch. Pair an outer (ink)
+   and inner (media) layer for an outlined arch. */
+.arch-mask {
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500' preserveAspectRatio='none'><path d='M0 500 L0 240 C0 168 42 158 82 118 C122 78 148 96 200 22 C252 96 278 78 318 118 C358 158 400 168 400 240 L400 500 Z' fill='black'/></svg>");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500' preserveAspectRatio='none'><path d='M0 500 L0 240 C0 168 42 158 82 118 C122 78 148 96 200 22 C252 96 278 78 318 118 C358 158 400 168 400 240 L400 500 Z' fill='black'/></svg>");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+}
+/* Outlined arch frame: outer paints ink through the mask, inner is inset */
+.arch-frame {
+  position: relative;
+  background: var(--ink);
+  padding: 3px;
+}
+.arch-frame > .arch-inner {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Temple-awning scallops hanging off the bottom edge */
+.scallop-down {
+  position: relative;
+}
+.scallop-down::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 11px;
+  background-image: radial-gradient(circle at 11px -3px, var(--red) 10px, transparent 11px);
+  background-size: 22px 11px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+  z-index: 5;
+  filter: drop-shadow(0 2px 0 rgba(52,32,14,0.35));
+}
+.scallop-down.white::after {
+  background-image: radial-gradient(circle at 11px -3px, var(--white) 10px, transparent 11px);
+}
+.scallop-down.ink::after {
+  background-image: radial-gradient(circle at 11px -3px, var(--ink) 10px, transparent 11px);
+}
+
+/* Lotus divider — a lotus bloom flanked by dashed rules */
+.orn-lotus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 26px 0;
+  color: var(--red);
+}
+.orn-lotus::before,
+.orn-lotus::after {
+  content: '';
+  flex: 1;
+  max-width: 220px;
+  height: 1.5px;
+  background-image: linear-gradient(to right, var(--ink) 60%, transparent 60%);
+  background-size: 9px 1.5px;
+}
+.orn-lotus svg { width: 54px; height: 28px; display: block; }
+
+/* Bindi dot */
+.bindi {
+  display: inline-block;
+  width: 9px; height: 9px;
+  background: var(--red);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--tan), 0 0 0 3.5px var(--gold);
+  vertical-align: middle;
+}
+
+/* ============ ORNAMENTAL RULES (line work) ============ */
+
+.orn-rule {
+  position: relative;
+  height: 24px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+}
+.orn-rule::before,
+.orn-rule::after {
+  content: '';
+  flex: 1;
+  height: 1.5px;
+  background-image: linear-gradient(to right, var(--ink) 65%, transparent 65%);
+  background-size: 8px 1.5px;
+}
+.orn-rule::before { margin-right: 14px; }
+.orn-rule::after { margin-left: 14px; }
+.orn-rule .orn-diamond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.orn-rule .orn-diamond svg {
+  width: 24px;
+  height: 12px;
+  display: block;
+}
+
+.orn-rule.thick::before,
+.orn-rule.thick::after {
+  height: 2px;
+  background-image: linear-gradient(to right, var(--ink) 70%, transparent 70%);
+  background-size: 12px 2px;
+}
+
+/* Bandhani-style dotted line */
+.orn-dots {
+  height: 10px;
+  background-image: radial-gradient(circle, var(--ink) 1.4px, transparent 1.6px);
+  background-size: 12px 10px;
+  background-position: center;
+  background-repeat: repeat-x;
+  margin: 24px 0;
+}
+.orn-dots.blood {
+  background-image: radial-gradient(circle, var(--red) 1.6px, transparent 1.8px);
+}
+
+.orn-ticks {
+  position: relative;
+  height: 12px;
+  margin: 20px 0;
+  background-image:
+    linear-gradient(to right, var(--ink) 1px, transparent 1px);
+  background-size: 8px 100%;
+  background-position: center bottom;
+  background-repeat: repeat-x;
+  border-bottom: 1.5px solid var(--ink);
+}
+
+/* HEADER — sindoor bar with temple scallop trim -------------- */
+.site-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--ink);
+  position: sticky;
+  top: 0;
+  background-color: var(--red);
+  background-image: url("assets/tex-blood.jpg");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  z-index: 20;
+}
+/* Grid tracks default to a min-width of their content's natural size, which
+   is what let the nav overflow the viewport on narrow screens — this lets
+   the side columns actually shrink. */
+.site-header .nav-left,
+.site-header .nav-right {
+  min-width: 0;
+}
+/* hanging scallops — like a mandap awning */
+.site-header::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 11px;
+  margin-top: 2px;
+  background-image: radial-gradient(circle at 11px -3px, var(--red) 10px, transparent 11px);
+  background-size: 22px 11px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+@media (min-width: 640px) { .site-header { grid-template-columns: 1fr auto 1fr; } }
+@media (min-width: 900px) { .site-header { padding: 18px 40px; gap: 20px; } }
+
+.site-header .nav-left,
+.site-header .nav-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+@media (min-width: 640px) {
+  .site-header .nav-left, .site-header .nav-right { gap: 20px; }
+}
+.site-header .nav-right { justify-content: flex-end; }
+.site-header a {
+  color: var(--white);
+  text-decoration: none;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  border: 1.5px solid transparent;
+  white-space: nowrap;
+  transition: border-color .15s, background .15s, color .15s;
+}
+@media (min-width: 640px) {
+  .site-header a { font-size: 12px; letter-spacing: 0.16em; padding: 8px 12px; }
+}
+.site-header a:hover {
+  color: var(--white);
+  border-color: var(--white);
+  background-color: rgba(255, 251, 240, 0.12);
+}
+.site-header a.active {
+  background-color: var(--white);
+  background-image: linear-gradient(rgba(255,251,240,0.87), rgba(255,251,240,0.87)), url("assets/tex-paper.jpg");
+  background-size: 200px auto;
+  background-position: center;
+  background-blend-mode: normal, multiply;
+  color: var(--red);
+  border-color: var(--ink);
+}
+
+.header-mark {
+  /* Redundant with the "Bazaar" nav link (same destination) at widths where
+     showing all three header pieces makes the nav crowd together — hidden
+     until there's room to breathe again. */
+  display: none;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: var(--white) !important;
+  text-decoration: none !important;
+  padding: 0 !important;
+  border: none !important;
+  white-space: nowrap;
+  align-items: center;
+  gap: 10px;
+}
+@media (min-width: 640px) {
+  .header-mark { display: inline-flex; }
+}
+.header-mark:hover { color: var(--tan) !important; }
+/* bindi before the wordmark */
+.header-mark .drop {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2.5px var(--red), 0 0 0 4px var(--gold);
+}
+
+/* Bag button */
+.bag-btn {
+  background-color: var(--ink) !important;
+  background-image: none !important;
+  color: var(--white) !important;
+  border: 1.5px solid var(--ink) !important;
+}
+.bag-btn:hover {
+  background-color: var(--white) !important;
+  background-image: linear-gradient(rgba(255,251,240,0.87), rgba(255,251,240,0.87)), url("assets/tex-paper.jpg") !important;
+  background-size: 200px auto !important;
+  background-position: center !important;
+  background-blend-mode: normal, multiply !important;
+  color: var(--red) !important;
+  border-color: var(--ink) !important;
+}
+
+/* BUTTONS ------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  background-color: var(--ink);
+  color: var(--white);
+  border: 2px solid var(--ink);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s, color .15s, border-color .15s;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+}
+.btn:hover {
+  background-color: var(--red);
+  background-image: url("assets/tex-blood.jpg");
+  color: var(--white);
+  border-color: var(--ink);
+}
+.btn.iodine {
+  background-color: var(--white);
+  background-image: linear-gradient(rgba(255,251,240,0.87), rgba(255,251,240,0.87)), url("assets/tex-paper.jpg");
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.btn.iodine:hover {
+  background-color: var(--ink);
+  background-image: none;
+  color: var(--white);
+}
+.btn.blood {
+  background-color: var(--red);
+  background-image: url("assets/tex-blood.jpg");
+  color: var(--white);
+  border-color: var(--ink);
+}
+.btn.blood:hover {
+  background-color: var(--ink);
+  background-image: none;
+  color: var(--white);
+}
+.btn.outline { background-color: transparent; background-image: none; color: var(--ink); }
+.btn.outline:hover {
+  background-color: var(--red);
+  background-image: url("assets/tex-blood.jpg");
+  color: var(--white);
+  border-color: var(--ink);
+}
+
+/* BAZAAR STRIP — scrolling band, tan cloth ---------------- */
+.gauze-strip {
+  position: relative;
+  padding: 14px 0;
+  background: var(--white);
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.gauze-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 2px,
+      rgba(52, 32, 14, 0.05) 2px,
+      rgba(52, 32, 14, 0.05) 3px
+    );
+  pointer-events: none;
+}
+.gauze-track {
+  display: inline-block;
+  animation: gauze 45s linear infinite;
+  padding-left: 100%;
+  position: relative;
+  z-index: 2;
+}
+.gauze-track span { padding: 0 28px; }
+.gauze-track .drop {
+  color: var(--red);
+  font-style: normal;
+}
+.gauze-track .plus {
+  color: var(--red);
+  font-style: normal;
+  font-family: var(--mono);
+}
+.gauze-track .hindi {
+  font-family: var(--deva);
+  font-style: normal;
+  color: var(--red);
+}
+@keyframes gauze {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+/* Sindoor variant of the strip */
+.blood-strip {
+  background-color: var(--red);
+  background-image: url("assets/tex-blood.jpg");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  color: var(--white);
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding: 14px 0;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+}
+.blood-strip::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 3px,
+      rgba(0, 0, 0, 0.08) 3px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+  pointer-events: none;
+}
+.blood-strip .gauze-track {
+  animation-duration: 45s;
+}
+.blood-strip .gauze-track .drop { color: var(--tan); }
+.blood-strip .gauze-track .hindi { color: var(--tan); }
+
+/* FOOTER ------------------------------------------------- */
+.site-footer {
+  border-top: 2px solid var(--ink);
+  padding: 56px 24px 44px;
+  background: var(--ink);
+  color: var(--tan);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  text-align: center;
+}
+/* scallops hanging INTO the footer from its top edge */
+.site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 11px;
+  background-image: radial-gradient(circle at 11px -3px, var(--tan) 10px, transparent 11px);
+  background-size: 22px 11px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+@media (min-width: 900px) {
+  .site-footer {
+    padding: 70px 40px 50px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    gap: 40px;
+  }
+}
+.site-footer .mark {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 56px;
+  line-height: 0.9;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  text-transform: none;
+}
+.site-footer .mark .drop { color: var(--red); font-style: normal; }
+.site-footer .mark .hindi {
+  display: block;
+  font-family: var(--deva);
+  font-style: normal;
+  font-size: 18px;
+  color: var(--tan);
+  margin-top: 12px;
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+.site-footer .foot-links {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.site-footer .foot-links a {
+  color: var(--tan);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: color .15s, opacity .15s;
+}
+.site-footer .foot-links a:hover { opacity: 1; color: var(--white); }
+
+/* Image-slot styling matches khadi */
+image-slot {
+  --is-bg: var(--tan-2);
+  --is-fg: var(--ink-2);
+  --is-border: transparent;
+  --is-radius: 0;
+  --is-font: var(--mono);
+  background: var(--tan-2);
+}
