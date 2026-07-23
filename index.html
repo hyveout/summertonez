@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<title>SUMMERTONEZ — shop</title>
+<link rel="stylesheet" href="styles.css"/>
+<link rel="stylesheet" href="css/shop.css"/>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="image_slot.js"></script>
+<script src="no-zoom.js"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="nav-left">
+    <a href="index.html" class="active">Bazaar</a>
+    <a href="portfolio.html">Portfolio</a>
+  </nav>
+  <a href="index.html" class="header-mark"><span class="drop"></span>summertonez</a>
+  <nav class="nav-right">
+    <a href="#" class="bag-btn">Bag (0)</a>
+  </nav>
+</header>
+
+<!-- HERO ------------------------------------------------- -->
+<section class="shop-hero paisley-bg">
+  <img class="hero-mandala" src="assets/mandala.png" alt="" aria-hidden="true"/>
+  <div class="shop-hero-inner">
+    <h1>the <span class="blood">bazaar</span>. <span class="hindi hero-hindi">ਬਾਜ਼ਾਰ</span></h1>
+  </div>
+</section>
+
+<!-- BAZAAR STRIP ------------------------------------------ -->
+<div class="gauze-strip" aria-hidden="true">
+  <div class="gauze-track">
+    <span>summertonez</span><span class="hindi">ਸਮਰਟੋਨਜ਼</span><span class="drop">✦</span>
+    <span>summertonez</span><span class="hindi">ਸਮਰਟੋਨਜ਼</span><span class="drop">✦</span>
+    <span>summertonez</span><span class="hindi">ਸਮਰਟੋਨਜ਼</span><span class="drop">✦</span>
+    <span>summertonez</span><span class="hindi">ਸਮਰਟੋਨਜ਼</span><span class="drop">✦</span>
+    <span>summertonez</span><span class="hindi">ਸਮਰਟੋਨਜ਼</span><span class="drop">✦</span>
+    <span>summertonez</span><span class="hindi">ਸਮਰਟੋਨਜ਼</span><span class="drop">✦</span>
+    <span>summertonez</span><span class="hindi">ਸਮਰਟੋਨਜ਼</span><span class="drop">✦</span>
+    <span>summertonez</span><span class="hindi">ਸਮਰਟੋਨਜ਼</span><span class="drop">✦</span>
+  </div>
+</div>
+
+<!-- FEATURE BANNER ---------------------------------------- -->
+<section class="feature-banner scallop-down">
+  <div class="feature-inner">
+    <image-slot id="feature-war-in-my-head" class="feature-photo" placeholder="Drop a photo of the shirt" shape="rounded" radius="16"></image-slot>
+    <div>
+      <div class="eyebrow"><span class="hindi">ਇਸ ਹਫ਼ਤੇ</span> · featured piece</div>
+      <h2>War In <span class="tan">My Head</span></h2>
+      <div class="feature-price">$150 · heavyweight cotton · oversized</div>
+    </div>
+    <a href="product.html?id=war-in-my-head" class="btn feature-cta">Discover →</a>
+  </div>
+</section>
+
+<!-- Filter bar -->
+<div class="filter-bar">
+  <div class="filter-sort">
+    <span>Sort</span>
+    <select id="sortSelect">
+      <option value="newest">Newest first</option>
+      <option value="price-asc">Price · low to high</option>
+      <option value="price-desc">Price · high to low</option>
+      <option value="available">Available first</option>
+    </select>
+  </div>
+</div>
+
+<!-- PRODUCT GRID -->
+<div class="shop-grid" id="shopGrid"></div>
+<div class="shop-empty" id="shopEmpty">nothing here yet — <span class="hindi">ਜਲਦੀ ਹੀ</span> (soon)</div>
+
+<!-- INFO STRIP -->
+<section class="info-strip">
+  <div class="info-cell">
+    <div class="num">ਛੋਟੇ ਬੈਚ</div>
+    <h3>small <span class="blood">batches</span>.</h3>
+    <p>Every piece is run in limited numbers — like a block-printer's edition. When a run ends, it goes to the archive.</p>
+  </div>
+  <div class="info-cell">
+    <div class="num">ਹੱਥ ਦੀ ਛਾਪ</div>
+    <h3>trauma building <span class="blood">stories</span>.</h3>
+    <p>Graphics drawn, sprayed and printed with the imperfection of the hand — the way mehndi never repeats twice.</p>
+  </div>
+  <div class="info-cell">
+    <div class="num">ਦੁਨੀਆ ਭਰ</div>
+    <h3>shipped <span class="blood">worldwide</span>.</h3>
+    <p>From our studio to anywhere. Tracked shipping on every order, wrapped like a gift from the bazaar.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="mark">summertonez<span class="drop">.</span>
+    <span class="hindi">ਸਮਰਟੋਨਜ਼</span>
+  </div>
+  <div class="foot-links">
+    <a href="https://instagram.com/summertonez">Instagram</a>
+    <a href="https://tiktok.com/@summertonez">TikTok</a>
+    <a href="/cdn-cgi/l/email-protection#63101716070a0c2310160e0e0611170c0d06194d000c0e">Contact</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script type="text/babel" src="tweaks_panel.jsx"></script>
+<script type="text/babel" src="tweaks.jsx"></script>
+
+<script src="products.js"></script>
+<script src="js/shop.js"></script>
+
+</body>
+</html>
